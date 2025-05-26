@@ -10,7 +10,7 @@ export default function Home() {
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-950 space-y-5">
       <h1 className="text-3xl font-bold text-white">Youtube to mp3</h1>
 
-      <div className="flex flex-row rounded-full bg-gray-800 border border-gray-700 space-x-5">
+      <div className="flex flex-row rounded-full bg-gray-800 border border-gray-700">
         <input
           type="text"
           placeholder="Paste YouTube URL here..."
@@ -19,10 +19,12 @@ export default function Home() {
           className="w-full pl-6 pr-3 py-2 rounded-l-full"
         />
         
-        <div className="flex item-center justify-center">
-          {/* <Search/> */}
-          <button/>
+        <div className="flex item-center justify-center bg-sky-950 rounded-r-full px-4 hover:bg-sky-800">
+          <button className="">
+            <Search/>
+          </button>
         </div>
+      
       </div>
 
 
