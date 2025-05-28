@@ -21,10 +21,10 @@ export default function Home() {
     // const data = await res.json();
     const data = await res.blob();
 
-    const downloadUrl = URL.createObjectURL(data);
+    const url = URL.createObjectURL(data);
     const a = document.createElement("a");
 
-    a.href = downloadUrl;
+    a.href = url;
     a.download = "audio.webm";
 
     a.click();
