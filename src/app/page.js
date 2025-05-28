@@ -5,6 +5,7 @@ import { useState } from "react";
 
 export default function Home() {
   const [query, setQuery] = useState("");
+  const [videoInfo, setVideoInfo] = useState(null);
 
   const handleSubmit = async () => {
     if (!query.trim()) return; // Check if empty or whitespace
@@ -17,7 +18,18 @@ export default function Home() {
       body: JSON.stringify({ url: query })
     });
 
-    const data = await res.json();
+    // const data = await res.json();
+    const data = await res.blob();
+
+    const downloadUrl = URL.createObjectURL(data);
+    const a = document.createElement("a");
+
+    a.href = downloadUrl;
+    a.download = "audio.webm";
+
+    a.click();
+
+    // setVideoInfo(data);
   }
 
   return (
@@ -35,7 +47,7 @@ export default function Home() {
         />
         
         <div className="flex item-center justify-center bg-sky-950 rounded-r-full px-3 hover:bg-sky-800">
-          <button onclick={handleSubmit}>
+          <button onClick={handleSubmit}>
             <Search/>
           </button>
         </div>
