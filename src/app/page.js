@@ -73,7 +73,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-950 space-y-5">
       {/* <div className="flex flex-col items-center justify-center gap-5 p-5 bg-gradient-to-r from-yellow-600 to-purple-800 rounded-lg w-[30%] l-[80%]"> */}
-      <h1 className="text-3xl font-bold text-white">Youtube to mp3</h1>
+      <h1 className="text-3xl font-bold text-white">Youtube Downloader</h1>
 
       <div className="flex flex-col gap-4">
 
@@ -88,7 +88,7 @@ export default function Home() {
             className="w-full pl-3 pr-20 py-2 rounded-l-full"
           />
             
-          <div className="flex item-center justify-center bg-sky-950 rounded-r-md px-3 hover:bg-sky-800">
+          <div className="flex item-center justify-center bg-sky-950 rounded-md px-3 hover:bg-sky-800">
             <button onClick={handleGetVideo}>
               <Search/>
             </button>
