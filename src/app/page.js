@@ -94,23 +94,20 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-950 space-y-5">
-      {/* <div className="flex flex-col items-center justify-center gap-5 p-5 bg-gradient-to-r from-yellow-600 to-purple-800 rounded-lg w-[30%] l-[80%]"> */}
       <h1 className="text-3xl font-bold text-white">Youtube Downloader</h1>
 
       <div className="flex flex-col gap-4">
 
-      
-        {/* Search box */}
         <div className="flex flex-row rounded-md bg-gray-800 border border-gray-700">
           <input
             type="text"
             placeholder="Paste YouTube URL here..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-3 pr-20 py-2 rounded-l-full"
+            className="w-full pl-3 pr-20 py-2"
           />
             
-          <div className="flex item-center justify-center bg-sky-950 rounded-md px-3 hover:bg-sky-800">
+          <div className="flex item-center justify-center rounded-md px-3 bg-sky-800 hover:bg-sky-700">
             <button onClick={handleGetVideo}>
               <Search/>
             </button>
@@ -127,12 +124,12 @@ export default function Home() {
 
           <button 
             onClick={handleAudioDownload}
-            className="bg-sky-950 hover:bg-sky-800 rounded-md p-3 text-md">
+            className="bg-sky-800 hover:bg-sky-700 rounded-md p-3 text-md">
             Download Audio
           </button>
           <button 
             onClick={handleVideoDownload}
-            className="bg-sky-950 hover:bg-sky-800 rounded-md p-3 text-md">
+            className="bg-sky-800 hover:bg-sky-700 rounded-md p-3 text-md">
             Download Video
           </button>
         </div>
