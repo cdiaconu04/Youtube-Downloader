@@ -9,17 +9,17 @@ export default function Home() {
 
   const [file, setFile] = useState(null);
 
-  const [title, setTitle] = useState("N/A")
-  const [length, setLength] = useState("N/A")
-  const [channel, setChannel] = useState("N/A")
-  const [gotVideo, setGotVideo] = useState(true)
+  const [title, setTitle] = useState("N/A");
+  const [length, setLength] = useState("N/A");
+  const [channel, setChannel] = useState("N/A");
+  const [gotVideo, setGotVideo] = useState(true);
 
-  const [hasError, setHasError] = useState(false)
+  const [hasError, setHasError] = useState(false);
 
-  const handleDownload = async () => {
-    if (!query.trim()) return; // Check if empty or whitespace
+  const handleAudioDownload = async () => {
+    if (!query.trim()) return;
 
-    const res = await fetch("/api/convert", {
+    const res = await fetch("/api/convert-audio", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -29,7 +29,6 @@ export default function Home() {
 
     setGotVideo(true);
 
-    // const data = await res.json();
     const data = await res.blob();
 
     const url = URL.createObjectURL(data);
@@ -42,13 +41,37 @@ export default function Home() {
     a.click();
   }
 
+  const handleVideoDownload = async () => {
+    if (!query.trim()) return;
+
+    const res = await fetch("/api/convert-video", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ url: query })
+    });
+
+    setGotVideo(true);
+
+    const data = await res.blob();
+
+    const url = URL.createObjectURL(data);
+    const a = document.createElement("a");
+
+    a.href = url;
+    a.download = "video.mp4";
+
+    setFile(a);
+    a.click();
+  }
+
   const handleGetVideo = async () => {
     if (!query.trim()) {
       setHasError(true);
       return;
     }
     try {
-      // Encode to protect against possible special characters in url (?, =, etc)
       const res = await fetch(`/api/metadata?url=${encodeURIComponent(query)}`);
 
       if (!res.ok) {
@@ -58,7 +81,6 @@ export default function Home() {
 
       const data = await res.json();
 
-      // Set metadata
       setTitle(data.videoDetails.title);
       setChannel(data.videoDetails.author.name);
       setLength(`${Math.floor(data.videoDetails.lengthSeconds / 60)}:${data.videoDetails.lengthSeconds % 60} minutes`);
@@ -102,15 +124,17 @@ export default function Home() {
           <p> Title: {title}</p>
           <p> Channel: {channel}</p>
           <p> Length: {length}</p>
-          {gotVideo ?
-            <button 
-              onClick={handleDownload}
-              className="bg-sky-950 hover:bg-sky-800 rounded-md p-3 text-md">
-              Download
-            </button>
-            :
-            <div></div>
-          }
+
+          <button 
+            onClick={handleAudioDownload}
+            className="bg-sky-950 hover:bg-sky-800 rounded-md p-3 text-md">
+            Download Audio
+          </button>
+          <button 
+            onClick={handleVideoDownload}
+            className="bg-sky-950 hover:bg-sky-800 rounded-md p-3 text-md">
+            Download Video
+          </button>
         </div>
       </div>
     </div>

@@ -24,7 +24,7 @@ export async function POST(req) {
             status: 200,
             headers: {
                 "Content-Type": audioFormat.mimeType || "audio/webm",
-                "Content-Disposition": `attachment; filename="${title}.webm"`
+                "Content-Disposition": `attachment; filename="audio.webm"`
             }
         });
 

@@ -1,0 +1,36 @@
+import ytdl from "ytdl-core";
+
+export async function POST(req) {
+    try {
+        const { url } = await req.json();
+
+        // If invalid return error
+        if (!ytdl.validateURL(url)) { 
+            return new Response(JSON.stringify({ error: "Invalid Youtube URL" }), { status: 400 });
+        }
+
+        const info = await ytdl.getInfo(url);
+
+        const format = ytdl.chooseFormat(info.formats, {
+            quality: "highestaudio",
+            filter: "audioandvideo"
+        });
+
+        const info2 = await ytdl.downloadFromInfo(info, {
+            format: format
+        });
+
+        return new Response(info2, {
+            status: 200,
+            headers: {
+                "Content-Type": format.mimeType || "video/mp4",
+                "Content-Disposition": `attachment; filename="video.webm"`
+            }
+        });
+
+    } catch (error) {
+        console.error(error);
+        return new Response(JSON.stringify({ error: "An error occurred" }), { status: 400 });
+    }
+}
+
